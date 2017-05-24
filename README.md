@@ -1,6 +1,6 @@
 [![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/gitlab-ci-multi-runner/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/gitlab-ci-multi-runner)
 
-# sameersbn/gitlab-ci-multi-runner:1.1.4-7
+# mitchese/gitlab-ci-multi-runner-docker:1.1.4-7
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -20,7 +20,7 @@
 
 # Introduction
 
-`Dockerfile` to create a [Docker](https://www.docker.com/) container base image for [gitlab-ci-multi-runner](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner). Use this image to build your CI runner images.
+`Dockerfile` to create a [Docker](https://www.docker.com/) container base image for [gitlab-ci-multi-runner](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner). Use this image to build your CI runner images. Extended from sameersbn to include docker binaries for buiding docker images.
 
 ## Contributing
 
