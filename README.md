@@ -1,5 +1,3 @@
-[![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/gitlab-ci-multi-runner/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/gitlab-ci-multi-runner)
-
 # mitchese/gitlab-ci-multi-runner-docker:1.1.4-7
 
 - [Introduction](#introduction)
@@ -20,15 +18,9 @@
 
 # Introduction
 
-`Dockerfile` to create a [Docker](https://www.docker.com/) container base image for [gitlab-ci-multi-runner](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner). Use this image to build your CI runner images. Extended from sameersbn to include docker binaries for buiding docker images.
+This is a clone of sameersbn's excellent gitlab-ci-multirunner, but with additional binaries included to allow building of Docker containers from gitlab-ci.
 
-## Contributing
-
-If you find this image useful here's how you can help:
-
-- Send a pull request with your awesome features and bug fixes
-- Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
-- Support the development of this image with a [donation](http://www.damagehead.com/donate/)
+I use this with my Gitlab-CI to build containers for my continuous integration pipeline. For additional information see  [gitlab-ci-multi-runner](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) and [my blog post](https://www.muzik.ca/2017/05/10/building-whalesay-with-docker-and-gitlab-ci/).
 
 ## Issues
 
@@ -46,18 +38,16 @@ If the above recommendations do not help then [report your issue](../../issues/n
 
 ## Installation
 
-Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/sameersbn/gitlab-ci-multi-runner) and is the recommended method of installation.
-
-> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/gitlab-ci-multi-runner)
+A finished image of this is available on [Dockerhub](https://hub.docker.com/r/mitchese/gitlab-ci-multi-runner-docker) and is the recommended method of installation.
 
 ```bash
-docker pull sameersbn/gitlab-ci-multi-runner:1.1.4-7
+docker pull mitchese/gitlab-ci-multi-runner-docker:latest
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sameersbn/gitlab-ci-multi-runner github.com/sameersbn/docker-gitlab-ci-multi-runner
+docker build -t mitchese/gitlab-ci-multi-runner-docker github.com/mitchese/docker-gitlab-ci-multi-runner-docker
 ```
 
 ## Quickstart
@@ -65,15 +55,12 @@ docker build -t sameersbn/gitlab-ci-multi-runner github.com/sameersbn/docker-git
 Before a runner can process your CI jobs, it needs to be authorized to access the the GitLab CI server. The `CI_SERVER_URL`, `RUNNER_TOKEN`, `RUNNER_DESCRIPTION` and `RUNNER_EXECUTOR` environment variables are used to register the runner on GitLab CI.
 
 ```bash
-docker run --name gitlab-ci-multi-runner -d --restart=always \
+docker run --name gitlab-ci-multi-runner-docker -d --restart=always \
   --volume /srv/docker/gitlab-runner:/home/gitlab_ci_multi_runner/data \
-  --env='CI_SERVER_URL=http://git.example.com/ci' --env='RUNNER_TOKEN=xxxxxxxxx' \
-  --env='RUNNER_DESCRIPTION=myrunner' --env='RUNNER_EXECUTOR=shell' \
-  sameersbn/gitlab-ci-multi-runner:1.1.4-7
+  --env='CI_SERVER_URL=http://git.muzik.ca/ci' --env='RUNNER_TOKEN=xxxxxxxxx' \
+  --env='RUNNER_DESCRIPTION=dockerrunner' --env='RUNNER_EXECUTOR=shell' \
+  mitchese/gitlab-ci-multi-runner-docker:latest
 ```
-
-*Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
-
 Update the values of `CI_SERVER_URL`, `RUNNER_TOKEN` and `RUNNER_DESCRIPTION` in the above command. If these enviroment variables are not specified, you will be prompted to enter these details interactively on first run.
 
 ## Command-line arguments
@@ -81,9 +68,9 @@ Update the values of `CI_SERVER_URL`, `RUNNER_TOKEN` and `RUNNER_DESCRIPTION` in
 You can customize the launch command by specifying arguments to `gitlab-ci-multi-runner` on the `docker run` command. For example the following command prints the help menu of `gitlab-ci-multi-runner` command:
 
 ```bash
-docker run --name gitlab-ci-multi-runner -it --rm \
+docker run --name gitlab-ci-multi-runner-docker -it --rm \
   --volume /srv/docker/gitlab-runner:/home/gitlab_ci_multi_runner/data \
-  sameersbn/gitlab-ci-multi-runner:1.1.4-7 --help
+  mitchese/gitlab-ci-multi-runner-docker:latest --help
 ```
 
 ## Persistence
@@ -131,37 +118,25 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull sameersbn/gitlab-ci-multi-runner:1.1.4-7
+  docker pull mitchese/gitlab-ci-multi-runner-docker:latest
   ```
 
   2. Stop the currently running image:
 
   ```bash
-  docker stop gitlab-ci-multi-runner
+  docker stop gitlab-ci-multi-runner-docker
   ```
 
   3. Remove the stopped container
 
   ```bash
-  docker rm -v gitlab-ci-multi-runner
+  docker rm -v gitlab-ci-multi-runner-docker
   ```
 
   4. Start the updated image
 
   ```bash
-  docker run -name gitlab-ci-multi-runner -d \
+  docker run -name gitlab-ci-multi-runner-docker -d \
     [OPTIONS] \
-    sameersbn/gitlab-ci-multi-runner:1.1.4-7
+    mitchese/gitlab-ci-multi-runner-docker:latest
   ```
-
-## Shell Access
-
-For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
-
-```bash
-docker exec -it gitlab-ci-multi-runner bash
-```
-
-# List of runners using this image
-
-* [docker-gitlab-ci-multi-runner-ruby](https://github.com/outcoldman/docker-gitlab-ci-multi-runner-ruby) to run ruby builds
