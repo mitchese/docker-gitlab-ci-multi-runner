@@ -1,3 +1,7 @@
+
+[![Docker Repository on Quay.io](https://quay.io/repository/mitchese/docker-gitlab-ci-multi-runner-docker/status "Docker Repository on Quay.io")](https://quay.io/repository/mitchese/docker-gitlab-ci-multi-runner-docker)
+
+
 # mitchese/gitlab-ci-multi-runner-docker:1.1.4-7
 
 - [Introduction](#introduction)
@@ -38,7 +42,7 @@ If the above recommendations do not help then [report your issue](../../issues/n
 
 ## Installation
 
-A finished image of this is available on [Dockerhub](https://hub.docker.com/r/mitchese/gitlab-ci-multi-runner-docker) and is the recommended method of installation.
+A finished image of this is available on [Dockerhub](https://hub.docker.com/r/mitchese/docker-gitlab-ci-multi-runner-docker) and is the recommended method of installation.
 
 ```bash
 docker pull mitchese/gitlab-ci-multi-runner-docker:latest
